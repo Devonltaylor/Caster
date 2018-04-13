@@ -1,6 +1,7 @@
 // MODULE
 var casterApp = angular.module('casterApp', ['ngRoute', 'ngResource']);
 
+
 // CONFIGURATION
 casterApp.config(function($routeProvider) {
     
@@ -18,12 +19,28 @@ casterApp.config(function($routeProvider) {
 });
 
 
+// SERVICES
+casterApp.service('cityService', function() {
+    
+    this.city = "Troy, MI";
+    
+})
+
+
 // CONTROLLERS
-casterApp.controller('homeController', ['$scope', function($scope){
+casterApp.controller('homeController', ['$scope', 'cityService', function($scope, cityService){
+    
+    $scope.city = cityService.city;
+    
+    $scope.$watch('city', function() {
+        cityService.city = $scope.city;
+    });
     
 }]);
 
-casterApp.controller('forecastController', ['$scope', function($scope){
+casterApp.controller('forecastController', ['$scope', 'cityService', function($scope, cityService){
+    
+    $scope.city = cityService.city;
     
 }]);
 
